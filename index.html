@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>退休倒數</title>
+  <!-- 讓瀏覽器 UI（狀態列、網址列）與頁面深色背景一致，減少白色邊緣 -->
+  <meta name="theme-color" content="#0b1a2e">
+  <title>退休倒數計時器 · 2039/01/01</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    /* html 鋪滿整個視口，背景與漸層起點同色，避免邊緣露出白色 */
+    html {
+      background: #0b1a2e;
+      height: 100%;
     }
 
     /* ---------- Mobile-First 基礎（手機樣式） ---------- */
@@ -331,7 +339,7 @@
 </head>
 <body>
   <!-- 左上角：版本 + 排版模式（absolute 定位，隨滾動移動，白字） -->
-  <div class="version-text" id="versionText">v2.3.0 Mobile</div>
+  <div class="version-text" id="versionText">v2.4.0 Mobile</div>
 
   <div class="card">
     <h1>⏳ 退休倒數</h1>
@@ -386,7 +394,7 @@
       // ============================================================
       // 版本編號（每次改版時手動遞增）
       // ============================================================
-      const VERSION = 'v2.3.0';
+      const VERSION = 'v2.4.0';
 
       // ============================================================
       // 左上角：版本 + 排版模式（單行文字，absolute 定位）
