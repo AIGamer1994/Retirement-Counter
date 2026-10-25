@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
+<html lang="zh-Hant"><head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0b1a2e">
@@ -59,7 +57,7 @@
       background: rgba(18, 30, 48, 0.85);
       backdrop-filter: blur(12px);
       border-radius: 1.6rem;
-      padding: 1.2rem 1rem;
+      padding: 1.4rem 1.1rem;
       box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 120, 0.2) inset;
       max-width: 820px;
       width: 100%;
@@ -79,7 +77,7 @@
       letter-spacing: 1.2px;
       color: #f5e7c8;
       text-shadow: 0 4px 12px rgba(255, 200, 80, 0.3);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.35rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -92,33 +90,33 @@
       font-size: 0.78rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       font-weight: 300;
       border-bottom: 1px dashed rgba(255, 220, 140, 0.4);
-      padding-bottom: 0.6rem;
+      padding-bottom: 0.7rem;
       display: inline-block;
     }
 
-    /* ---------- 統一寬度容器：三排都以此為基準 ---------- */
+    /* ---------- 統一寬度容器：加大區塊之間的間距 ---------- */
     .grid-container {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 0.8rem;
+      gap: 0.85rem; /* 從 0.5rem 加大到 0.85rem */
+      margin-bottom: 0.5rem; /* 縮小底部的 margin，把空間留給下方 */
     }
 
     .row {
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.85rem; /* 同行之間的間距也加大 */
     }
 
     .time-block {
       background: #0d1a27;
       border-radius: 1rem;
-      padding: 0.5rem 0.2rem;
+      padding: 0.7rem 0.25rem; /* 增加內距，讓數字上下透氣 */
       flex: 1 1 0;
       min-width: 0;
       box-shadow: 0 12px 18px -8px black, 0 0 0 1px rgba(255, 210, 120, 0.2);
@@ -147,20 +145,19 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: #92adc9;
-      margin-top: 0.2rem;
+      margin-top: 0.3rem;
       font-weight: 400;
     }
 
-    /* ---------- 年齡區塊 ---------- */
+    /* ---------- 年齡區塊：增加內距與高度 ---------- */
     .age-section {
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 0.8rem;
+      gap: 1rem; /* 增加兩個年齡項目的間距 */
       background: rgba(10, 20, 30, 0.7);
       border-radius: 1.5rem;
-      padding: 0.7rem 0.6rem;
+      padding: 1.1rem 0.8rem; /* 增加上下內距，讓區塊更飽滿 */
       border: 1px solid rgba(255, 200, 100, 0.3);
     }
 
@@ -173,27 +170,27 @@
     }
 
     .age-label {
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: #b8cfec;
       letter-spacing: 0.8px;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.3rem;
     }
 
     .age-value {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: #ffd966;
       background: #162433;
-      padding: 0.2rem 0.7rem;
+      padding: 0.25rem 0.8rem;
       border-radius: 50px;
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7), 0 0 0 1px #b88c3a;
       line-height: 1.2;
     }
 
     .age-note {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       color: #97b3d0;
-      margin-top: 0.15rem;
+      margin-top: 0.3rem;
       font-style: italic;
       white-space: nowrap;
       overflow: hidden;
@@ -201,11 +198,12 @@
       max-width: 100%;
     }
 
+    /* ---------- 訊息與按鈕：縮小上方 margin，讓整體更集中 ---------- */
     .message {
       font-size: 0.85rem;
       color: #c9dbf0;
-      margin-top: 0.8rem;
-      padding-top: 0.6rem;
+      margin-top: 0.5rem; /* 從 0.8rem 縮小到 0.5rem */
+      padding-top: 0.5rem; /* 減少上方 padding */
       border-top: 1px solid rgba(255, 210, 120, 0.3);
       letter-spacing: 0.3px;
       font-weight: 300;
@@ -217,10 +215,9 @@
       font-size: 1rem;
     }
 
-    /* ---------- 設定按鈕（開啟彈出視窗） ---------- */
     .settings {
-      margin-top: 0.8rem;
-      padding-top: 0.6rem;
+      margin-top: 0.6rem; /* 縮小按鈕上方間距 */
+      padding-top: 0.5rem;
       border-top: 1px dashed rgba(255, 220, 140, 0.3);
     }
 
@@ -230,7 +227,7 @@
       justify-content: center;
       gap: 6px;
       width: 100%;
-      padding: 0.5rem 0.6rem;
+      padding: 0.55rem 0.6rem;
       background: rgba(13, 26, 39, 0.7);
       border: 1px solid rgba(255, 210, 120, 0.3);
       border-radius: 0.7rem;
@@ -248,13 +245,13 @@
     }
 
     .footnote {
-      margin-top: 0.8rem;
+      margin-top: 0.6rem;
       font-size: 0.6rem;
       color: #6e8aa8;
       letter-spacing: 0.3px;
     }
 
-    /* ---------- 彈出式視窗（Modal） ---------- */
+    /* ---------- 彈出式視窗 ---------- */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -403,19 +400,19 @@
       .target-date {
         font-size: 0.88rem;
         letter-spacing: 2px;
-        margin-bottom: 1.4rem;
-        padding-bottom: 0.8rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.9rem;
       }
       .grid-container {
-        gap: 0.7rem;
-        margin-bottom: 1rem;
+        gap: 1.1rem; /* 桌面版也加大間距 */
+        margin-bottom: 0.8rem;
       }
       .row {
-        gap: 0.7rem;
+        gap: 1.1rem;
       }
       .time-block {
         border-radius: 1.4rem;
-        padding: 0.7rem 0.3rem;
+        padding: 0.9rem 0.35rem;
       }
       .time-value {
         font-size: 2.2rem;
@@ -424,38 +421,41 @@
       .time-label {
         font-size: 0.68rem;
         letter-spacing: 1.5px;
-        margin-top: 0.3rem;
+        margin-top: 0.35rem;
       }
       .age-section {
-        gap: 0.7rem;
+        gap: 1.2rem;
         border-radius: 2rem;
-        padding: 0.8rem 1rem;
-        margin-bottom: 1rem;
+        padding: 1.2rem 1.2rem;
       }
       .age-label {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
       }
       .age-value {
-        font-size: 1.6rem;
-        padding: 0.25rem 1rem;
+        font-size: 1.7rem;
+        padding: 0.3rem 1.1rem;
       }
       .age-note {
-        font-size: 0.68rem;
+        font-size: 0.7rem;
       }
       .message {
         font-size: 0.95rem;
-        margin-top: 1rem;
-        padding-top: 0.8rem;
+        margin-top: 0.8rem;
+        padding-top: 0.7rem;
       }
       .message strong {
         font-size: 1.1rem;
       }
+      .settings {
+        margin-top: 0.8rem;
+        padding-top: 0.7rem;
+      }
       .settings-toggle {
         font-size: 0.9rem;
-        padding: 0.6rem 0.8rem;
+        padding: 0.65rem 0.8rem;
       }
       .footnote {
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         font-size: 0.65rem;
       }
       .version-text {
@@ -499,7 +499,7 @@
         font-size: 0.6rem;
       }
       .age-value {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
       }
       .age-label, .age-note {
         font-size: 0.58rem;
@@ -521,10 +521,10 @@
 </head>
 <body>
   <!-- 左上角：版本 + 排版模式 -->
-  <div class="version-text" id="versionText">v3.1.0 Mobile</div>
+  <div class="version-text" id="versionText">v3.2.1 Mobile</div>
 
   <div class="card">
-    <h1>⏳ 退休倒數</h1>
+    <h1>⏳ 退休倒數時鐘</h1>
     <div class="target-date" id="targetDateDisplay">2039年1月1日 · 退休日</div>
 
     <!-- 統一寬度容器 -->
@@ -532,43 +532,47 @@
       <!-- 第一排：天 -->
       <div class="row">
         <div class="time-block days-block">
-          <div class="time-value" id="days">--</div>
+          <div class="time-value" id="days">4450</div>
           <div class="time-label">天</div>
         </div>
       </div>
       <!-- 第二排：時、分、秒 -->
       <div class="row">
         <div class="time-block">
-          <div class="time-value" id="hours">--</div>
+          <div class="time-value" id="hours">01</div>
           <div class="time-label">小時</div>
         </div>
         <div class="time-block">
-          <div class="time-value" id="minutes">--</div>
+          <div class="time-value" id="minutes">58</div>
           <div class="time-label">分鐘</div>
         </div>
         <div class="time-block">
-          <div class="time-value" id="seconds">--</div>
+          <div class="time-value" id="seconds">49</div>
           <div class="time-label">秒</div>
         </div>
       </div>
       <!-- 第三排：年齡 -->
-      <div class="age-section">
+      <div class="age-section" style="
+    padding-top: 7px;
+    padding-bottom: 7px;
+">
         <div class="age-item">
           <div class="age-label">現在年齡</div>
-          <div class="age-value" id="currentAge">--</div>
+          <div class="age-value" id="currentAge" style="padding-top: 2px;padding-bottom: 2px;">31</div>
           <div class="age-note" id="birthNote">(1994/11/25 出生)</div>
         </div>
         <div class="age-item">
           <div class="age-label">退休時年齡</div>
-          <div class="age-value" id="retireAge">--</div>
+          <div class="age-value" id="retireAge" style="
+    padding-top: 2px;
+    padding-bottom: 2px;
+">44</div>
           <div class="age-note" id="retireNote">(2039/01/01)</div>
         </div>
       </div>
     </div>
 
-    <div class="message" id="message">
-      距離退休還有 <strong>--</strong> 天
-    </div>
+    <div class="message" id="message">距離退休還有 <strong>4,451</strong> 天</div>
 
     <!-- 開啟彈出視窗的按鈕 -->
     <div class="settings">
@@ -577,7 +581,7 @@
       </button>
     </div>
 
-    <div class="footnote">⏱️ 倒數自動更新 · 每秒刷新</div>
+    <div class="footnote">⏱️ 倒數自動刷新</div>
   </div>
 
   <!-- 彈出式視窗 -->
@@ -602,35 +606,24 @@
 
   <script>
     (function() {
-      const VERSION = 'v3.1.0';
+      const VERSION = 'v3.2.1';
 
-      // ============================================================
-      // 預設日期
-      // ============================================================
       const DEFAULT_RETIREMENT = new Date(2039, 0, 1, 0, 0, 0);
       const DEFAULT_BIRTH = new Date(1994, 10, 25);
 
       let RETIREMENT_DATE = new Date(DEFAULT_RETIREMENT);
       let BIRTH_DATE = new Date(DEFAULT_BIRTH);
 
-      // ============================================================
-      // 左上角版本 + 排版模式
-      // ============================================================
       const versionTextEl = document.getElementById('versionText');
-
       function updateVersionText() {
         const isDesktop = window.matchMedia('(min-width: 600px)').matches;
         const mode = isDesktop ? 'Desktop' : 'Mobile';
         versionTextEl.textContent = `${VERSION} ${mode}`;
       }
-
       updateVersionText();
       window.addEventListener('resize', updateVersionText);
       window.matchMedia('(min-width: 600px)').addEventListener('change', updateVersionText);
 
-      // ============================================================
-      // 手機版禁止雙擊縮放
-      // ============================================================
       let lastTouchEnd = 0;
       document.addEventListener('touchend', function(event) {
         const now = Date.now();
@@ -644,9 +637,6 @@
         event.preventDefault();
       });
 
-      // ============================================================
-      // DOM 元素
-      // ============================================================
       const daysEl = document.getElementById('days');
       const hoursEl = document.getElementById('hours');
       const minutesEl = document.getElementById('minutes');
@@ -666,9 +656,6 @@
       const retirementInput = document.getElementById('retirementInput');
       const birthInput = document.getElementById('birthInput');
 
-      // ============================================================
-      // 工具函式
-      // ============================================================
       function pad2(n) {
         return String(n).padStart(2, '0');
       }
@@ -701,9 +688,6 @@
         return age;
       }
 
-      // ============================================================
-      // 更新畫面
-      // ============================================================
       function updateAges() {
         const now = new Date();
         currentAgeEl.textContent = calculateAge(BIRTH_DATE, now);
@@ -759,11 +743,7 @@
         updateAges();
       }
 
-      // ============================================================
-      // 彈出式視窗開關
-      // ============================================================
       function openModal() {
-        // 每次開啟時，將輸入框同步為目前套用的日期
         retirementInput.value = toInputDateString(RETIREMENT_DATE);
         birthInput.value = toInputDateString(BIRTH_DATE);
         settingsHint.classList.remove('error', 'success');
@@ -778,21 +758,16 @@
       openModalBtn.addEventListener('click', openModal);
       cancelBtn.addEventListener('click', closeModal);
 
-      // 點擊遮罩背景關閉
       modalOverlay.addEventListener('click', function(e) {
         if (e.target === modalOverlay) closeModal();
       });
 
-      // Esc 關閉
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
           closeModal();
         }
       });
 
-      // ============================================================
-      // 套用使用者輸入的日期
-      // ============================================================
       function applyDates() {
         const retirementValue = retirementInput.value;
         const birthValue = birthInput.value;
@@ -830,7 +805,6 @@
         settingsHint.textContent = '已套用新日期！';
         settingsHint.classList.add('success');
 
-        // 短暫顯示成功訊息後關閉視窗
         setTimeout(function() {
           closeModal();
         }, 800);
@@ -845,9 +819,6 @@
         if (e.key === 'Enter') applyDates();
       });
 
-      // ============================================================
-      // 初始化
-      // ============================================================
       retirementInput.value = toInputDateString(RETIREMENT_DATE);
       birthInput.value = toInputDateString(BIRTH_DATE);
 
@@ -862,5 +833,5 @@
       window._retirementTimer = setInterval(updateAll, 1000);
     })();
   </script>
-</body>
-</html>
+
+</body></html>
