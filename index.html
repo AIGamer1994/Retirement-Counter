@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <!-- 讓瀏覽器 UI（狀態列、網址列）與頁面深色背景一致，減少白色邊緣 -->
   <meta name="theme-color" content="#0b1a2e">
-  <title>退休倒數計時器 · 2039/01/01</title>
+  <title>退休倒數計時器</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +12,6 @@
       padding: 0;
     }
 
-    /* html 鋪滿整個視口，背景與漸層起點同色，避免邊緣露出白色 */
     html {
       background: #0b1a2e;
       height: 100%;
@@ -28,10 +26,10 @@
       align-items: center;
       justify-content: center;
       font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
-      padding: max(3rem, env(safe-area-inset-top) + 2rem)
-               max(1rem, env(safe-area-inset-right))
-               max(1rem, env(safe-area-inset-bottom))
-               max(1rem, env(safe-area-inset-left));
+      padding: max(2rem, env(safe-area-inset-top) + 1rem)
+               max(0.8rem, env(safe-area-inset-right))
+               max(0.8rem, env(safe-area-inset-bottom))
+               max(0.8rem, env(safe-area-inset-left));
       margin: 0;
       overflow-x: hidden;
       position: relative;
@@ -41,13 +39,13 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* ---------- 左上角版本與排版文字（absolute 定位，隨滾動移動） ---------- */
+    /* ---------- 左上角版本與排版文字 ---------- */
     .version-text {
       position: absolute;
-      top: max(0.75rem, env(safe-area-inset-top) + 0.5rem);
-      left: max(0.75rem, env(safe-area-inset-left) + 0.5rem);
+      top: max(0.6rem, env(safe-area-inset-top) + 0.4rem);
+      left: max(0.6rem, env(safe-area-inset-left) + 0.4rem);
       z-index: 9999;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       letter-spacing: 1px;
       color: #ffffff;
       font-weight: 600;
@@ -60,8 +58,8 @@
     .card {
       background: rgba(18, 30, 48, 0.85);
       backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      padding: 1.8rem 1.2rem;
+      border-radius: 1.6rem;
+      padding: 1.2rem 1rem;
       box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 120, 0.2) inset;
       max-width: 820px;
       width: 100%;
@@ -70,102 +68,99 @@
       transition: all 0.2s ease;
       margin-top: 0;
       touch-action: manipulation;
+      max-height: calc(100dvh - 2rem);
+      display: flex;
+      flex-direction: column;
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 500;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       color: #f5e7c8;
       text-shadow: 0 4px 12px rgba(255, 200, 80, 0.3);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
     .target-date {
       color: #aac8e4;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1rem;
       font-weight: 300;
       border-bottom: 1px dashed rgba(255, 220, 140, 0.4);
-      padding-bottom: 0.8rem;
+      padding-bottom: 0.6rem;
       display: inline-block;
     }
 
-    /* ---------- 倒數區塊：上排天，下排時分秒 ---------- */
-    .countdown-grid {
+    /* ---------- 統一寬度容器：三排都以此為基準 ---------- */
+    .grid-container {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 1.6rem;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
     }
 
-    .countdown-row-top {
+    .row {
+      width: 100%;
       display: flex;
       justify-content: center;
-    }
-
-    .countdown-row-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
 
     .time-block {
       background: #0d1a27;
-      border-radius: 1.4rem;
-      padding: 0.7rem 0.3rem;
-      flex: 1 1 calc(33.333% - 0.6rem);
+      border-radius: 1rem;
+      padding: 0.5rem 0.2rem;
+      flex: 1 1 0;
       min-width: 0;
       box-shadow: 0 12px 18px -8px black, 0 0 0 1px rgba(255, 210, 120, 0.2);
       border-bottom: 3px solid #ffbe4d;
     }
 
-    /* 天數區塊：獨立一行，加寬置中 */
     .time-block.days-block {
-      flex: 0 1 60%;
-      min-width: 160px;
-      max-width: 260px;
+      flex: 1 1 100%;
     }
 
     .time-value {
-      font-size: 2rem;
+      font-size: 1.7rem;
       font-weight: 800;
       color: #ffe9b6;
       line-height: 1.1;
       font-variant-numeric: tabular-nums;
       text-shadow: 0 0 12px #f0b34b;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .time-label {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       color: #92adc9;
-      margin-top: 0.3rem;
+      margin-top: 0.2rem;
       font-weight: 400;
     }
 
+    /* ---------- 年齡區塊 ---------- */
     .age-section {
+      width: 100%;
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
       background: rgba(10, 20, 30, 0.7);
-      border-radius: 2rem;
-      padding: 1rem 1rem;
-      margin-bottom: 1rem;
+      border-radius: 1.5rem;
+      padding: 0.7rem 0.6rem;
       border: 1px solid rgba(255, 200, 100, 0.3);
     }
 
@@ -173,133 +168,295 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      flex: 1 1 auto;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .age-label {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       color: #b8cfec;
-      letter-spacing: 1px;
-      margin-bottom: 0.2rem;
+      letter-spacing: 0.8px;
+      margin-bottom: 0.15rem;
     }
 
     .age-value {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #ffd966;
       background: #162433;
-      padding: 0.25rem 1rem;
+      padding: 0.2rem 0.7rem;
       border-radius: 50px;
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7), 0 0 0 1px #b88c3a;
       line-height: 1.2;
     }
 
     .age-note {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: #97b3d0;
-      margin-top: 0.2rem;
+      margin-top: 0.15rem;
       font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
     }
 
     .message {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: #c9dbf0;
-      margin-top: 1.2rem;
-      padding-top: 0.9rem;
+      margin-top: 0.8rem;
+      padding-top: 0.6rem;
       border-top: 1px solid rgba(255, 210, 120, 0.3);
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       font-weight: 300;
     }
 
     .message strong {
       color: #ffd966;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1rem;
+    }
+
+    /* ---------- 設定按鈕（開啟彈出視窗） ---------- */
+    .settings {
+      margin-top: 0.8rem;
+      padding-top: 0.6rem;
+      border-top: 1px dashed rgba(255, 220, 140, 0.3);
+    }
+
+    .settings-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      background: rgba(13, 26, 39, 0.7);
+      border: 1px solid rgba(255, 210, 120, 0.3);
+      border-radius: 0.7rem;
+      color: #f5e7c8;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 0.15s ease;
+    }
+
+    .settings-toggle:active {
+      background: rgba(255, 190, 77, 0.15);
     }
 
     .footnote {
-      margin-top: 1.2rem;
-      font-size: 0.7rem;
+      margin-top: 0.8rem;
+      font-size: 0.6rem;
       color: #6e8aa8;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
     }
 
-    /* ---------- 平板 / 桌面（min-width 往上加） ---------- */
+    /* ---------- 彈出式視窗（Modal） ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #121e30;
+      border: 1px solid rgba(255, 210, 120, 0.35);
+      border-radius: 1.4rem;
+      padding: 1.4rem 1.2rem;
+      width: 100%;
+      max-width: 340px;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 215, 120, 0.15) inset;
+      touch-action: manipulation;
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      color: #f5e7c8;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .modal-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-row label {
+      font-size: 0.8rem;
+      color: #b8cfec;
+      letter-spacing: 0.3px;
+      flex: 0 0 auto;
+    }
+
+    .modal-row input[type="date"] {
+      flex: 1 1 auto;
+      min-width: 130px;
+      max-width: 100%;
+      background: #0d1a27;
+      border: 1px solid rgba(255, 210, 120, 0.35);
+      border-radius: 0.6rem;
+      padding: 0.45rem 0.6rem;
+      color: #ffe9b6;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      touch-action: manipulation;
+    }
+
+    .modal-row input[type="date"]:focus {
+      border-color: #ffbe4d;
+      box-shadow: 0 0 0 2px rgba(255, 190, 77, 0.25);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .modal-actions button {
+      flex: 1 1 0;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 0.7rem;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
+    }
+
+    .modal-actions .btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      color: #c9dbf0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-actions .btn-cancel:active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-actions .btn-apply {
+      background: linear-gradient(145deg, #ffbe4d, #e6a32e);
+      color: #0b1a2e;
+      box-shadow: 0 8px 18px -8px rgba(255, 190, 77, 0.6);
+    }
+
+    .modal-actions .btn-apply:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px -6px rgba(255, 190, 77, 0.5);
+    }
+
+    .settings-hint {
+      margin-top: 0.6rem;
+      font-size: 0.72rem;
+      color: #97b3d0;
+      text-align: center;
+      min-height: 1em;
+    }
+
+    .settings-hint.error {
+      color: #ff9b9b;
+    }
+
+    .settings-hint.success {
+      color: #7ee0a1;
+    }
+
+    /* ---------- 平板 / 桌面 ---------- */
     @media (min-width: 600px) {
       body {
-        padding: 4rem 1.5rem 1.5rem;
+        padding: 3rem 1.5rem 1.5rem;
         touch-action: auto;
       }
       .card {
         touch-action: auto;
-        border-radius: 3.5rem;
-        padding: 2.8rem 2.5rem;
+        border-radius: 2.5rem;
+        padding: 2rem 2rem;
+        max-height: none;
       }
       h1 {
-        font-size: 1.9rem;
-        letter-spacing: 2px;
-        gap: 10px;
+        font-size: 1.7rem;
+        letter-spacing: 1.8px;
+        gap: 8px;
       }
       .target-date {
-        font-size: 0.95rem;
-        letter-spacing: 2.5px;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
+        font-size: 0.88rem;
+        letter-spacing: 2px;
+        margin-bottom: 1.4rem;
+        padding-bottom: 0.8rem;
       }
-      .countdown-grid {
-        gap: 0.9rem;
-        margin-bottom: 2.2rem;
+      .grid-container {
+        gap: 0.7rem;
+        margin-bottom: 1rem;
       }
-      .countdown-row-bottom {
-        gap: 0.9rem;
+      .row {
+        gap: 0.7rem;
       }
       .time-block {
-        border-radius: 1.8rem;
-        padding: 0.8rem 0.4rem;
-        flex: 1 1 85px;
-        min-width: 85px;
-        max-width: 160px;
-      }
-      .time-block.days-block {
-        flex: 0 1 220px;
-        min-width: 200px;
-        max-width: 280px;
+        border-radius: 1.4rem;
+        padding: 0.7rem 0.3rem;
       }
       .time-value {
-        font-size: 2.6rem;
-        letter-spacing: 1px;
+        font-size: 2.2rem;
+        letter-spacing: 0.8px;
       }
       .time-label {
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-        margin-top: 0.4rem;
+        font-size: 0.68rem;
+        letter-spacing: 1.5px;
+        margin-top: 0.3rem;
       }
       .age-section {
-        gap: 1.8rem;
-        border-radius: 60px;
-        padding: 1rem 1.5rem;
+        gap: 0.7rem;
+        border-radius: 2rem;
+        padding: 0.8rem 1rem;
+        margin-bottom: 1rem;
       }
       .age-label {
-        font-size: 0.8rem;
+        font-size: 0.72rem;
       }
       .age-value {
-        font-size: 1.8rem;
-        padding: 0.3rem 1.2rem;
+        font-size: 1.6rem;
+        padding: 0.25rem 1rem;
       }
       .age-note {
-        font-size: 0.75rem;
+        font-size: 0.68rem;
       }
       .message {
-        font-size: 1rem;
-        margin-top: 1.5rem;
-        padding-top: 1rem;
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        padding-top: 0.8rem;
       }
       .message strong {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+      }
+      .settings-toggle {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.8rem;
       }
       .footnote {
-        margin-top: 1.5rem;
-        font-size: 0.7rem;
+        margin-top: 1rem;
+        font-size: 0.65rem;
       }
       .version-text {
         font-size: 0.75rem;
@@ -307,53 +464,80 @@
         top: max(1rem, env(safe-area-inset-top) + 0.5rem);
         left: max(1rem, env(safe-area-inset-left) + 0.5rem);
       }
+      .modal {
+        max-width: 380px;
+        padding: 1.8rem 1.6rem;
+      }
+      .modal-title {
+        font-size: 1.15rem;
+      }
+      .modal-row label {
+        font-size: 0.9rem;
+      }
+      .modal-row input[type="date"] {
+        font-size: 0.95rem;
+        padding: 0.55rem 0.7rem;
+      }
+      .modal-actions button {
+        font-size: 0.95rem;
+        padding: 0.7rem 1rem;
+      }
     }
 
     /* 極窄螢幕（320px 左右）再保險 */
     @media (max-width: 340px) {
       .card {
-        padding: 1.2rem 0.8rem;
+        padding: 1rem 0.7rem;
       }
       h1 {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
       .time-value {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
       }
       .time-label {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
       }
       .age-value {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
       .age-label, .age-note {
-        font-size: 0.65rem;
+        font-size: 0.58rem;
       }
       .version-text {
-        font-size: 0.6rem;
-        top: max(0.5rem, env(safe-area-inset-top) + 0.3rem);
-        left: max(0.5rem, env(safe-area-inset-left) + 0.3rem);
+        font-size: 0.55rem;
+        top: max(0.4rem, env(safe-area-inset-top) + 0.2rem);
+        left: max(0.4rem, env(safe-area-inset-left) + 0.2rem);
+      }
+      .modal-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .modal-row label {
+        margin-bottom: 0.15rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 左上角：版本 + 排版模式（absolute 定位，隨滾動移動，白字） -->
-  <div class="version-text" id="versionText">v2.4.0 Mobile</div>
+  <!-- 左上角：版本 + 排版模式 -->
+  <div class="version-text" id="versionText">v3.1.0 Mobile</div>
 
   <div class="card">
     <h1>⏳ 退休倒數</h1>
-    <div class="target-date">2039年1月1日 · 退休日</div>
+    <div class="target-date" id="targetDateDisplay">2039年1月1日 · 退休日</div>
 
-    <!-- 倒數計時區塊：上排天，下排時分秒 -->
-    <div class="countdown-grid" id="countdown">
-      <div class="countdown-row-top">
+    <!-- 統一寬度容器 -->
+    <div class="grid-container">
+      <!-- 第一排：天 -->
+      <div class="row">
         <div class="time-block days-block">
           <div class="time-value" id="days">--</div>
           <div class="time-label">天</div>
         </div>
       </div>
-      <div class="countdown-row-bottom">
+      <!-- 第二排：時、分、秒 -->
+      <div class="row">
         <div class="time-block">
           <div class="time-value" id="hours">--</div>
           <div class="time-label">小時</div>
@@ -367,37 +551,70 @@
           <div class="time-label">秒</div>
         </div>
       </div>
-    </div>
-
-    <!-- 年齡顯示 -->
-    <div class="age-section">
-      <div class="age-item">
-        <div class="age-label">現在年齡</div>
-        <div class="age-value" id="currentAge">31</div>
-        <div class="age-note">(1994/11/25 出生)</div>
-      </div>
-      <div class="age-item">
-        <div class="age-label">退休時年齡</div>
-        <div class="age-value" id="retireAge">44</div>
-        <div class="age-note">(2039/01/01)</div>
+      <!-- 第三排：年齡 -->
+      <div class="age-section">
+        <div class="age-item">
+          <div class="age-label">現在年齡</div>
+          <div class="age-value" id="currentAge">--</div>
+          <div class="age-note" id="birthNote">(1994/11/25 出生)</div>
+        </div>
+        <div class="age-item">
+          <div class="age-label">退休時年齡</div>
+          <div class="age-value" id="retireAge">--</div>
+          <div class="age-note" id="retireNote">(2039/01/01)</div>
+        </div>
       </div>
     </div>
 
     <div class="message" id="message">
       距離退休還有 <strong>--</strong> 天
     </div>
+
+    <!-- 開啟彈出視窗的按鈕 -->
+    <div class="settings">
+      <button class="settings-toggle" id="openModalBtn" type="button">
+        ⚙️ 自訂日期
+      </button>
+    </div>
+
     <div class="footnote">⏱️ 倒數自動更新 · 每秒刷新</div>
+  </div>
+
+  <!-- 彈出式視窗 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-title" id="modalTitle">⚙️ 自訂日期</div>
+      <div class="modal-row">
+        <label for="retirementInput">退休日</label>
+        <input type="date" id="retirementInput" value="2039-01-01">
+      </div>
+      <div class="modal-row">
+        <label for="birthInput">出生日</label>
+        <input type="date" id="birthInput" value="1994-11-25">
+      </div>
+      <div class="settings-hint" id="settingsHint"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelBtn" type="button">取消</button>
+        <button class="btn-apply" id="applyBtn" type="button">套用</button>
+      </div>
+    </div>
   </div>
 
   <script>
     (function() {
-      // ============================================================
-      // 版本編號（每次改版時手動遞增）
-      // ============================================================
-      const VERSION = 'v2.4.0';
+      const VERSION = 'v3.1.0';
 
       // ============================================================
-      // 左上角：版本 + 排版模式（單行文字，absolute 定位）
+      // 預設日期
+      // ============================================================
+      const DEFAULT_RETIREMENT = new Date(2039, 0, 1, 0, 0, 0);
+      const DEFAULT_BIRTH = new Date(1994, 10, 25);
+
+      let RETIREMENT_DATE = new Date(DEFAULT_RETIREMENT);
+      let BIRTH_DATE = new Date(DEFAULT_BIRTH);
+
+      // ============================================================
+      // 左上角版本 + 排版模式
       // ============================================================
       const versionTextEl = document.getElementById('versionText');
 
@@ -428,17 +645,8 @@
       });
 
       // ============================================================
-      // 倒數計時器
+      // DOM 元素
       // ============================================================
-      if (window._retirementTimer) {
-        clearInterval(window._retirementTimer);
-        window._retirementTimer = null;
-      }
-
-      const RETIREMENT_DATE = new Date(2039, 0, 1, 0, 0, 0);
-      // 出生日期：1994年11月25日（一出生為 0 歲，實歲計算）
-      const BIRTH_DATE = new Date(1994, 10, 25);
-
       const daysEl = document.getElementById('days');
       const hoursEl = document.getElementById('hours');
       const minutesEl = document.getElementById('minutes');
@@ -446,8 +654,37 @@
       const currentAgeEl = document.getElementById('currentAge');
       const retireAgeEl = document.getElementById('retireAge');
       const messageEl = document.getElementById('message');
+      const targetDateDisplayEl = document.getElementById('targetDateDisplay');
+      const birthNoteEl = document.getElementById('birthNote');
+      const retireNoteEl = document.getElementById('retireNote');
 
-      // 實歲年齡：出生時 0 歲，滿生日才 +1
+      const openModalBtn = document.getElementById('openModalBtn');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const applyBtn = document.getElementById('applyBtn');
+      const settingsHint = document.getElementById('settingsHint');
+      const retirementInput = document.getElementById('retirementInput');
+      const birthInput = document.getElementById('birthInput');
+
+      // ============================================================
+      // 工具函式
+      // ============================================================
+      function pad2(n) {
+        return String(n).padStart(2, '0');
+      }
+
+      function toInputDateString(date) {
+        return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+      }
+
+      function toDisplayDateString(date) {
+        return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+      }
+
+      function toNoteDateString(date) {
+        return `${date.getFullYear()}/${pad2(date.getMonth() + 1)}/${pad2(date.getDate())}`;
+      }
+
       function calculateAge(birthDate, referenceDate) {
         const birthYear = birthDate.getFullYear();
         const birthMonth = birthDate.getMonth();
@@ -464,6 +701,9 @@
         return age;
       }
 
+      // ============================================================
+      // 更新畫面
+      // ============================================================
       function updateAges() {
         const now = new Date();
         currentAgeEl.textContent = calculateAge(BIRTH_DATE, now);
@@ -499,27 +739,123 @@
 
         const seconds = Math.floor(diff / msPerSecond);
 
-        const daysStr = days.toString();
-        if (daysStr.length >= 5) {
-          daysEl.style.fontSize = '1.7rem';
-        } else if (daysStr.length === 4) {
-          daysEl.style.fontSize = '1.9rem';
-        } else {
-          daysEl.style.fontSize = '';
-        }
-
         daysEl.textContent = days;
-        hoursEl.textContent = String(hours).padStart(2, '0');
-        minutesEl.textContent = String(minutes).padStart(2, '0');
-        secondsEl.textContent = String(seconds).padStart(2, '0');
+        hoursEl.textContent = pad2(hours);
+        minutesEl.textContent = pad2(minutes);
+        secondsEl.textContent = pad2(seconds);
 
         const totalDays = Math.ceil((RETIREMENT_DATE - now) / msPerDay);
         messageEl.innerHTML = `距離退休還有 <strong>${totalDays.toLocaleString()}</strong> 天`;
       }
 
+      function updateStaticTexts() {
+        targetDateDisplayEl.textContent = `${toDisplayDateString(RETIREMENT_DATE)} · 退休日`;
+        birthNoteEl.textContent = `(${toNoteDateString(BIRTH_DATE)} 出生)`;
+        retireNoteEl.textContent = `(${toNoteDateString(RETIREMENT_DATE)})`;
+      }
+
       function updateAll() {
         updateCountdown();
         updateAges();
+      }
+
+      // ============================================================
+      // 彈出式視窗開關
+      // ============================================================
+      function openModal() {
+        // 每次開啟時，將輸入框同步為目前套用的日期
+        retirementInput.value = toInputDateString(RETIREMENT_DATE);
+        birthInput.value = toInputDateString(BIRTH_DATE);
+        settingsHint.classList.remove('error', 'success');
+        settingsHint.textContent = '';
+        modalOverlay.classList.add('open');
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('open');
+      }
+
+      openModalBtn.addEventListener('click', openModal);
+      cancelBtn.addEventListener('click', closeModal);
+
+      // 點擊遮罩背景關閉
+      modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) closeModal();
+      });
+
+      // Esc 關閉
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+          closeModal();
+        }
+      });
+
+      // ============================================================
+      // 套用使用者輸入的日期
+      // ============================================================
+      function applyDates() {
+        const retirementValue = retirementInput.value;
+        const birthValue = birthInput.value;
+
+        settingsHint.classList.remove('error', 'success');
+        settingsHint.textContent = '';
+
+        if (!retirementValue || !birthValue) {
+          settingsHint.textContent = '請填寫退休日與出生日。';
+          settingsHint.classList.add('error');
+          return;
+        }
+
+        const newRetirement = new Date(retirementValue + 'T00:00:00');
+        const newBirth = new Date(birthValue + 'T00:00:00');
+
+        if (isNaN(newRetirement.getTime()) || isNaN(newBirth.getTime())) {
+          settingsHint.textContent = '日期格式不正確，請重新選擇。';
+          settingsHint.classList.add('error');
+          return;
+        }
+
+        if (newBirth >= newRetirement) {
+          settingsHint.textContent = '出生日必須早於退休日。';
+          settingsHint.classList.add('error');
+          return;
+        }
+
+        RETIREMENT_DATE = newRetirement;
+        BIRTH_DATE = newBirth;
+
+        updateStaticTexts();
+        updateAll();
+
+        settingsHint.textContent = '已套用新日期！';
+        settingsHint.classList.add('success');
+
+        // 短暫顯示成功訊息後關閉視窗
+        setTimeout(function() {
+          closeModal();
+        }, 800);
+      }
+
+      applyBtn.addEventListener('click', applyDates);
+
+      retirementInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') applyDates();
+      });
+      birthInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') applyDates();
+      });
+
+      // ============================================================
+      // 初始化
+      // ============================================================
+      retirementInput.value = toInputDateString(RETIREMENT_DATE);
+      birthInput.value = toInputDateString(BIRTH_DATE);
+
+      updateStaticTexts();
+
+      if (window._retirementTimer) {
+        clearInterval(window._retirementTimer);
+        window._retirementTimer = null;
       }
 
       updateAll();
