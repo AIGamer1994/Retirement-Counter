@@ -36,16 +36,20 @@
       right: max(0.6rem, env(safe-area-inset-right) + 0.4rem); z-index: 9999;
       display: flex; align-items: center; gap: 6px;
     }
-    .threads-link, .reset-btn {
-      font-size: 0.75rem; color: #aac8e4; text-decoration: none; font-weight: 500;
+    .fontsize-select, .threads-link, .reset-btn {
+      font-size: 0.75rem; color: #aac8e4; font-weight: 500;
       letter-spacing: 0.5px; transition: all 0.2s ease;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
       display: flex; align-items: center; gap: 4px;
       background: rgba(13, 26, 39, 0.7); border: 1px solid rgba(255, 210, 120, 0.3);
       border-radius: 50px; padding: 0.3rem 0.6rem; cursor: pointer;
-      font-family: inherit; white-space: nowrap;
+      font-family: inherit; white-space: nowrap; outline: none;
     }
-    .threads-link:hover, .reset-btn:hover {
+    .threads-link { text-decoration: none; }
+    .fontsize-select option {
+      background: #0d1a27; color: #ffe9b6;
+    }
+    .fontsize-select:hover, .threads-link:hover, .reset-btn:hover {
       color: #ffd966; background: rgba(255, 190, 77, 0.15); border-color: #ffbe4d;
       text-shadow: 0 0 8px rgba(255, 190, 77, 0.5);
     }
@@ -54,7 +58,7 @@
     .app-title {
       font-size: 1.5rem; font-weight: 700; color: #ffd966;
       text-shadow: 0 4px 12px rgba(255, 200, 80, 0.4);
-      margin-bottom: 1.2rem; letter-spacing: 2px; line-height: 1.2; text-align: center;
+      margin-top: 0.8rem; margin-bottom: 1.2rem; letter-spacing: 2px; line-height: 1.2; text-align: center;
     }
     .card {
       background: rgba(18, 30, 48, 0.85); backdrop-filter: blur(12px);
@@ -110,11 +114,30 @@
       border-bottom: 3px solid #ffbe4d;
     }
     .time-block.days-block { flex: 1 1 100%; }
+    
+    /* 倒數數字基礎尺寸 */
     .time-value {
-      font-size: 1.7rem; font-weight: 800; color: #ffe9b6; line-height: 1.1;
+      font-size: var(--num-font-size-mobile, 1.7rem);
+      font-weight: 800; color: #ffe9b6; line-height: 1.1;
       font-variant-numeric: tabular-nums; text-shadow: 0 0 12px #f0b34b;
       letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: font-size 0.2s ease;
     }
+
+    /* 倒數數字三種尺寸 (Small, Medium, Large) CSS 變數重新定義 */
+    body[data-fontsize="small"] {
+      --num-font-size-mobile: 1.7rem;
+      --num-font-size-desktop: 2.2rem;
+    }
+    body[data-fontsize="medium"] {
+      --num-font-size-mobile: 2.1rem;
+      --num-font-size-desktop: 2.8rem;
+    }
+    body[data-fontsize="large"] {
+      --num-font-size-mobile: 2.6rem;
+      --num-font-size-desktop: 3.5rem;
+    }
+
     .time-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #92adc9; margin-top: 0.3rem; font-weight: 400; }
     .age-section {
       width: 100%; display: flex; justify-content: center; gap: 1rem;
@@ -261,7 +284,7 @@
     .confirm-actions button:active { transform: scale(0.97); }
     @media (min-width: 600px) {
       body { padding: 3rem 1.5rem 1.5rem; touch-action: auto; }
-      .app-title { font-size: 1.8rem; margin-bottom: 1.5rem; letter-spacing: 3px; }
+      .app-title { font-size: 1.8rem; margin-top: 1rem; margin-bottom: 1.5rem; letter-spacing: 3px; }
       .card { touch-action: auto; border-radius: 2.5rem; padding: 2rem 2rem; max-height: none; }
       .tabs-container { gap: 0.8rem; padding-bottom: 1rem; }
       .tab-btn { font-size: 0.95rem; padding: 0.5rem 1rem; }
@@ -271,7 +294,7 @@
       .grid-container { gap: 1.1rem; margin-bottom: 0.8rem; }
       .row { gap: 1.1rem; }
       .time-block { border-radius: 1.4rem; padding: 0.9rem 0.35rem; }
-      .time-value { font-size: 2.2rem; letter-spacing: 0.8px; }
+      .time-value { font-size: var(--num-font-size-desktop, 2.8rem); letter-spacing: 0.8px; }
       .time-label { font-size: 0.68rem; letter-spacing: 1.5px; margin-top: 0.35rem; }
       .age-section { gap: 1.2rem; border-radius: 2rem; padding: 1rem 1.2rem; }
       .age-label { font-size: 0.75rem; }
@@ -282,7 +305,7 @@
       .footnote { margin-top: 0.8rem; font-size: 0.65rem; }
       .version-text { font-size: 0.75rem; letter-spacing: 1.2px; top: max(1rem, env(safe-area-inset-top) + 0.5rem); left: max(1rem, env(safe-area-inset-left) + 0.5rem); }
       .top-right-actions { top: max(1rem, env(safe-area-inset-top) + 0.5rem); right: max(1rem, env(safe-area-inset-right) + 0.5rem); gap: 8px; }
-      .threads-link, .reset-btn { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
+      .fontsize-select, .threads-link, .reset-btn { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
       .modal { max-width: 400px; padding: 1.8rem 1.6rem; }
       .modal-title { font-size: 1.15rem; }
       .modal-row label { font-size: 0.9rem; }
@@ -291,26 +314,30 @@
       .weekday-checkboxes label { font-size: 0.85rem; }
     }
     @media (max-width: 340px) {
-      .app-title { font-size: 1.2rem; margin-bottom: 0.8rem; }
+      .app-title { font-size: 1.2rem; margin-top: 0.6rem; margin-bottom: 0.8rem; }
       .card { padding: 1rem 0.7rem; }
       .countdown-title { font-size: 1rem; margin-bottom: 0.6rem; }
-      .time-value { font-size: 1.4rem; }
       .time-label { font-size: 0.6rem; }
       .age-value { font-size: 1.2rem; }
       .age-label, .age-note { font-size: 0.58rem; }
       .version-text { font-size: 0.55rem; top: max(0.4rem, env(safe-area-inset-top) + 0.2rem); left: max(0.4rem, env(safe-area-inset-left) + 0.2rem); }
       .top-right-actions { top: max(0.4rem, env(safe-area-inset-top) + 0.2rem); right: max(0.4rem, env(safe-area-inset-right) + 0.2rem); gap: 4px; }
-      .threads-link, .reset-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
+      .fontsize-select, .threads-link, .reset-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
       .modal-row { flex-direction: column; align-items: stretch; }
       .modal-row label { margin-bottom: 0.15rem; }
       .weekday-checkboxes { justify-content: flex-start; }
     }
   </style>
 </head>
-<body>
-  <div class="version-text" id="versionText">v6.4.0 Mobile</div>
+<body data-fontsize="medium">
+  <div class="version-text" id="versionText">v6.6.0 Mobile</div>
 
   <div class="top-right-actions">
+    <select class="fontsize-select" id="fontSizeSelect" title="調整數字字型大小">
+      <option value="small">字型：小</option>
+      <option value="medium" selected>字型：中</option>
+      <option value="large">字型：大</option>
+    </select>
     <button class="reset-btn" id="resetBtn" type="button">🔄 重設</button>
     <a href="https://www.threads.com/@salarythief.earlyretire" target="_blank" rel="noopener noreferrer" class="threads-link">
       🥷 薪水小偷/提早退休
@@ -417,7 +444,7 @@
         <select id="recurringValueInput"></select>
       </div>
       <div class="modal-row hidden" id="recurringWeekdayRow">
-        <label>星期幾</label>
+        <label>星期</label>
         <div class="weekday-checkboxes">
           <label><input type="checkbox" value="1" class="weekday-cb"> 一</label>
           <label><input type="checkbox" value="2" class="weekday-cb"> 二</label>
@@ -443,7 +470,7 @@
         </label>
       </div>
       <div class="modal-row" id="messageRow">
-        <label for="messageInput">彈窗提示文字</label>
+        <label for="messageInput">彈出文字</label>
         <input type="text" id="messageInput" placeholder="⏰ 時間到了！" maxlength="50">
       </div>
       <div class="settings-hint" id="settingsHint"></div>
@@ -475,7 +502,7 @@
 
   <script>
     (function() {
-      const VERSION = 'v6.4.0';
+      const VERSION = 'v6.6.0';
 
       const HK_HOLIDAYS = [
         { date: new Date(2026, 11, 25), name: '聖誕節' },
@@ -537,6 +564,7 @@
       };
 
       const STORAGE_KEY = 'salarythief_clocks_v1';
+      const FONT_SIZE_KEY = 'salarythief_fontsize_v1';
       let clocks = [];
       let activeId = 'retirement';
 
@@ -653,6 +681,7 @@
       const notificationOverlay = document.getElementById('notificationOverlay');
       const notificationText = document.getElementById('notificationText');
       const notificationCloseBtn = document.getElementById('notificationCloseBtn');
+      const fontSizeSelect = document.getElementById('fontSizeSelect');
       const resetBtn = document.getElementById('resetBtn');
       const confirmOverlay = document.getElementById('confirmOverlay');
       const confirmCancelBtn = document.getElementById('confirmCancelBtn');
@@ -661,6 +690,22 @@
       let modalMode = 'edit';
       let sortableInstance = null;
       let pendingNotificationClock = null;
+
+      // 初始化字型大小設定
+      function initFontSize() {
+        const savedSize = localStorage.getItem(FONT_SIZE_KEY) || 'medium';
+        document.body.setAttribute('data-fontsize', savedSize);
+        fontSizeSelect.value = savedSize;
+      }
+      initFontSize();
+
+      fontSizeSelect.addEventListener('change', function() {
+        const val = this.value;
+        document.body.setAttribute('data-fontsize', val);
+        try {
+          localStorage.setItem(FONT_SIZE_KEY, val);
+        } catch (e) { console.warn(e); }
+      });
 
       function getNextHoliday(clock) {
         const now = new Date();
@@ -757,7 +802,7 @@
             }
           }
         } else if (freq === 'monthly') {
-          recurringValueLabel.textContent = '幾號';
+          recurringValueLabel.textContent = '固定日子';
           for (let d = 1; d <= 31; d++) {
             const opt = document.createElement('option');
             opt.value = d; opt.textContent = `${d}號`;
@@ -905,22 +950,31 @@
         recurringTimeRow.classList.add('hidden');
         templateRow.classList.add('hidden');
         holidayRow.classList.add('hidden');
+
         if (selectedType === 'retirement') {
           birthRow.classList.remove('hidden');
           dateRow.classList.remove('hidden');
           timeRow.classList.remove('hidden');
+          messageInput.value = defaultRetirement.customMessage;
         } else if (selectedType === 'custom') {
           nameRow.classList.remove('hidden');
           dateRow.classList.remove('hidden');
           timeRow.classList.remove('hidden');
+          messageInput.value = '⏰ 時間到了！';
         } else if (selectedType === 'recurring') {
           nameRow.classList.remove('hidden');
           recurringFreqRow.classList.remove('hidden');
           recurringTimeRow.classList.remove('hidden');
           templateRow.classList.remove('hidden');
           updateRecurringValues();
+          if (templateInput.value === 'none') {
+            messageInput.value = '⏰ 時間到了！';
+          } else {
+            templateInput.dispatchEvent(new Event('change'));
+          }
         } else if (selectedType === 'holiday') {
           holidayRow.classList.remove('hidden');
+          messageInput.value = defaultHoliday.customMessage;
         }
       }
       typeInput.addEventListener('change', updateFormFields);
@@ -1028,7 +1082,7 @@
           countdownTitleEl.textContent = `⏳ 距離${activeClock.name}仲有`;
         }
 
-        editBtn.innerHTML = `⚙️ 修改${activeClock.name}`;
+        editBtn.innerHTML = `⚙️ 修改時鐘`;
 
         if (activeClock.type === 'retirement') {
           ageSection.classList.remove('hidden');
