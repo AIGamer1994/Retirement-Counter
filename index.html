@@ -61,7 +61,9 @@
       font-size: 1.5rem; font-weight: 700; color: #ffd966;
       text-shadow: 0 4px 12px rgba(255, 200, 80, 0.4);
       margin-top: 0.8rem; margin-bottom: 1.2rem; letter-spacing: 2px; line-height: 1.2; text-align: center;
+      background: none; border: 0; cursor: pointer; font-family: inherit;
     }
+    .app-title:focus-visible { outline: 2px solid #ffbe4d; outline-offset: 4px; border-radius: 0.3rem; }
     .card {
       background: rgba(18, 30, 48, 0.85); backdrop-filter: blur(12px);
       border-radius: 1.6rem; padding: 1.4rem 1.1rem;
@@ -365,7 +367,7 @@
     </a>
   </div>
 
-  <div class="app-title">🏃💨 逃離社畜生活</div>
+  <button class="app-title" id="appTitleText" type="button" title="按下修改標題">🏃💨 逃離社畜生活</button>
 
   <div class="card">
     <div class="tabs-container" id="tabsContainer"></div>
@@ -511,7 +513,7 @@
     <div class="modal" style="max-width: 320px;">
       <div class="modal-title">✏️ 修改應用程式標題</div>
       <div class="modal-row" style="margin-bottom: 1rem;">
-        <input type="text" id="titleInputText" placeholder="⏰ 夠鐘" maxlength="30" style="width: 100%;">
+        <input type="text" id="titleInputText" placeholder="🏃💨 逃離社畜生活" maxlength="30" style="width: 100%;">
       </div>
       <div class="modal-actions">
         <button class="btn-cancel" id="titleCancelBtn" type="button">取消</button>
@@ -617,6 +619,8 @@
 
       const STORAGE_KEY = 'salarythief_clocks_v1';
       const FONT_SIZE_KEY = 'salarythief_fontsize_v1';
+      const TITLE_KEY = 'salarythief_apptitle_v1';
+      const DEFAULT_TITLE = '🏃💨 逃離社畜生活';
       let clocks = [];
       let activeId = 'retirement';
       let isPreviewing = false;
@@ -745,10 +749,50 @@
       const confirmOverlay = document.getElementById('confirmOverlay');
       const confirmCancelBtn = document.getElementById('confirmCancelBtn');
       const confirmResetBtn = document.getElementById('confirmResetBtn');
+      const appTitleText = document.getElementById('appTitleText');
+      const titleModalOverlay = document.getElementById('titleModalOverlay');
+      const titleInputText = document.getElementById('titleInputText');
+      const titleCancelBtn = document.getElementById('titleCancelBtn');
+      const titleApplyBtn = document.getElementById('titleApplyBtn');
 
       let modalMode = 'edit';
       let sortableInstance = null;
       let pendingNotificationClock = null;
+
+      function initAppTitle() {
+        try {
+          appTitleText.textContent = localStorage.getItem(TITLE_KEY) ?? DEFAULT_TITLE;
+        } catch (e) {
+          console.warn('LocalStorage title read failed.', e);
+        }
+      }
+      initAppTitle();
+
+      appTitleText.addEventListener('click', () => {
+        titleInputText.value = appTitleText.textContent;
+        titleModalOverlay.classList.add('open');
+        titleInputText.focus();
+      });
+      titleCancelBtn.addEventListener('click', () => titleModalOverlay.classList.remove('open'));
+      titleModalOverlay.addEventListener('click', (e) => {
+        if (e.target === titleModalOverlay) titleModalOverlay.classList.remove('open');
+      });
+      titleApplyBtn.addEventListener('click', () => {
+        const title = titleInputText.value.trim();
+        appTitleText.textContent = title;
+        try {
+          localStorage.setItem(TITLE_KEY, title);
+        } catch (e) {
+          console.warn('LocalStorage title save failed.', e);
+        }
+        titleModalOverlay.classList.remove('open');
+      });
+      titleInputText.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          titleApplyBtn.click();
+        }
+      });
 
       // 初始化字型大小設定
       function initFontSize() {
@@ -1307,7 +1351,6 @@
           localStorage.removeItem(TITLE_KEY);
         } catch (e) { console.warn(e); }
         appTitleText.textContent = DEFAULT_TITLE;
-        document.title = DEFAULT_TITLE;
         clocks = getDefaultClocks();
         activeId = 'retirement';
         pendingNotificationClock = null;
