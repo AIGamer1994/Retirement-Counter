@@ -1102,6 +1102,9 @@
           handle: '.tab-drag-handle',
           filter: '.tab-close',
           preventOnFilter: false,
+          delay: 150,               // 👈 新增：按住 150 毫秒以上才判定為拖曳，避免誤觸
+          delayOnTouchOnly: true,   // 👈 新增：僅在手機觸控時啟用延遲（電腦滑鼠點擊依然靈敏）
+          touchStartThreshold: 5,   // 👈 新增：手指滑動超過 5px 才開始拖曳
           onEnd: function () {
             const newOrderIds = Array.from(tabsContainer.children).map(child => child.dataset.id);
             clocks.sort((a, b) => newOrderIds.indexOf(a.id) - newOrderIds.indexOf(b.id));
