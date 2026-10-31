@@ -12,6 +12,20 @@
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* 🚫 防範長按選取字詞與 iOS 選單 */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    input, textarea {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
     html { background: #0b1a2e; height: 100%; }
     body {
       background: linear-gradient(145deg, #0b1a2e 0%, #1b2f48 100%);
